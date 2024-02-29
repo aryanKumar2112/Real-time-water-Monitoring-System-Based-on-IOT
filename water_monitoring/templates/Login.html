@@ -1,0 +1,20 @@
+<br>
+<br>
+<h1 style="text-align: center;">Login Here Please</h1>
+<br>
+<br>
+    <div style="text-align: center;">
+        <form action='Login' method='POST'>
+            {% csrf_token %}
+            <p>Enter your Username</p><input type = 'text' name='username' />
+            <p>Enter Password</p><input type='password' name='password'/>
+            <br>
+            <input type = 'submit' name='Login'/>
+            <br>
+        </form>
+    </div>
+<br>
+{% for  message in messages  %}
+<h3 style="text-align:center; color:red">{{message}}</h3>
+{% endfor %}
+
