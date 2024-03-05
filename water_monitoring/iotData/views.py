@@ -30,6 +30,9 @@ def Login(request):
 def Logout(request):
     auth.logout(request)
     return redirect('/')
+
+def result(request):
+    return render(request, 'result.html')
 class iotDataView(APIView):
     def get(self, request):
         data = IotData.objects.all()
