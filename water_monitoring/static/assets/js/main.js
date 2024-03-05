@@ -271,3 +271,6 @@
   new PureCounter();
 
 })()
+function navigateToOtherPage(){
+  window.location.href = "result.html";
+}
