@@ -5,6 +5,8 @@ from django.contrib.auth.models import auth
 from rest_framework.views import APIView
 from rest_framework import status
 from rest_framework.response import Response
+from django.http import JsonResponse
+from django.views import View
 
 from iotData.serializers import IotDataSerializer
 
@@ -33,6 +35,7 @@ def Logout(request):
 
 def result(request):
     return render(request, 'result.html')
+
 class iotDataView(APIView):
     def get(self, request):
         data = IotData.objects.all()
@@ -61,3 +64,10 @@ class iotDataView(APIView):
         )
         iotData.save()
         return Response(data, status=status.HTTP_200_OK)
+    
+    def options(self, request, *args, **kwargs):
+        response = JsonResponse({'message': 'CORS allowed'})
+        response['Access-Control-Allow-Origin'] = '*'
+        response['Access-Control-Allow-Methods'] = 'GET, POST, OPTIONS'
+        response['Access-Control-Allow-Headers'] = 'Content-Type'
+        return response
