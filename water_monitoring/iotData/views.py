@@ -6,6 +6,9 @@ from rest_framework.views import APIView
 from rest_framework import status
 from rest_framework.response import Response
 
+from django.http import JsonResponse
+from django.views import View
+
 from iotData.serializers import IotDataSerializer
 
 from .models import IotData
@@ -26,19 +29,21 @@ def Login(request):
             return redirect('Login')
     else :
         return render(request, 'Login.html')
-        
+
 def Logout(request):
     auth.logout(request)
     return redirect('/')
 
 def result(request):
     return render(request, 'result.html')
+
+
 class iotDataView(APIView):
     def get(self, request):
         data = IotData.objects.all()
         serializer = IotDataSerializer(data, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
-    
+
     def post(self, request):
         data = request.data
         username = data.get('username')
@@ -49,7 +54,7 @@ class iotDataView(APIView):
             # Username is unique, create a new user
             user = User.objects.create_user(username=username, password=password)
             user.save()
-            
+
 
         iotData = IotData.objects.create(
             temperature=data.get('temperature'),
@@ -61,3 +66,12 @@ class iotDataView(APIView):
         )
         iotData.save()
         return Response(data, status=status.HTTP_200_OK)
+
+    def options(self, request, *args, **kwargs):
+        response = JsonResponse({'message': 'CORS allowed'})
+        response['Access-Control-Allow-Origin'] = '*'
+        response['Access-Control-Allow-Methods'] = 'GET, POST, OPTIONS'
+        response['Access-Control-Allow-Headers'] = 'Content-Type'
+        return response
+
+
