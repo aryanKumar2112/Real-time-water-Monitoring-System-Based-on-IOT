@@ -5,6 +5,8 @@ from django.contrib.auth.models import auth
 from rest_framework.views import APIView
 from rest_framework import status
 from rest_framework.response import Response
+from django.http import JsonResponse
+from django.views import View
 
 from django.http import JsonResponse
 from django.views import View
@@ -37,7 +39,10 @@ def Logout(request):
 def result(request):
     return render(request, 'result.html')
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> fd2464c13fef0c8e9e4d1597633b1db82c167d44
 class iotDataView(APIView):
     def get(self, request):
         data = IotData.objects.all()
@@ -66,12 +71,19 @@ class iotDataView(APIView):
         )
         iotData.save()
         return Response(data, status=status.HTTP_200_OK)
+<<<<<<< HEAD
 
+=======
+    
+>>>>>>> fd2464c13fef0c8e9e4d1597633b1db82c167d44
     def options(self, request, *args, **kwargs):
         response = JsonResponse({'message': 'CORS allowed'})
         response['Access-Control-Allow-Origin'] = '*'
         response['Access-Control-Allow-Methods'] = 'GET, POST, OPTIONS'
         response['Access-Control-Allow-Headers'] = 'Content-Type'
         return response
+<<<<<<< HEAD
 
 
+=======
+>>>>>>> fd2464c13fef0c8e9e4d1597633b1db82c167d44
